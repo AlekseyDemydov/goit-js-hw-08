@@ -1,10 +1,14 @@
 // Add imports above this line
 import { galleryItems } from "./gallery-items";
+// Описан в документации
+import SimpleLightbox from "simplelightbox";
+// Дополнительный импорт стилей
+import "simplelightbox/dist/simple-lightbox.min.css";
 // Change code below this line
 
 console.log(galleryItems);
 
-const getGallery = document.querySelector("ul.gallery");
+const getGallery = document.querySelector("div.gallery");
 
 const addList = galleryItems
   .map(
@@ -12,10 +16,13 @@ const addList = galleryItems
       description,
       original,
       preview,
-    }) => `<li class="gallery__link"><a class="gallery__item" href="${original}">
-  <img class="gallery__image" src="${preview}" alt="${description}" />
-</a>
-</li>`
+    }) =>
+`<div class="gallery-item"><a class="gallery__link" href="${original}">
+<img class="gallery__image"
+src="${preview}" 
+data-source="${original}" 
+alt="${description}"  >
+</a></div>`
   )
   .join("");
 getGallery.insertAdjacentHTML("afterbegin", addList);
