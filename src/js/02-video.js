@@ -1,11 +1,23 @@
 
-const iframe = document.querySelector('iframe');
-    const player = new Vimeo.Player(iframe);
+import { throttle } from 'lodash';
+import Player from '@vimeo/player';
+const iframe = document.querySelector('#vimeo-player');
 
-    player.on('play', function() {
-        console.log('played the video!');
-    });
+const player = new Player(iframe, {
+  id: 19231868,
+  width: 640,
+});
 
-    player.getVideoTitle().then(function(title) {
-        console.log('title:', title);
-    });
+const previousTime = Number(localStorage.getItem('videoplayer-current-time'));
+
+if (previousTime) {
+  player.setCurrentTime(previousTime);
+}
+
+player.on(
+  'timeupdate',
+  throttle(data => {
+    console.log(data);
+    localStorage.setItem('videoplayer-current-time', data.seconds);
+  }, 1000)
+);
