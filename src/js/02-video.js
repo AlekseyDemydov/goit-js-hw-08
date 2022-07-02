@@ -8,10 +8,10 @@ const player = new Player(iframe, {
   width: 640,
 });
 
-const previousTime = Number(localStorage.getItem('videoplayer-current-time'));
+const currentTime = Number(localStorage.getItem('videoplayer-current-time'));
 
-if (previousTime) {
-  player.setCurrentTime(previousTime);
+if (currentTime) {
+  player.setCurrentTime(currentTime);
 }
 
 player.on(
